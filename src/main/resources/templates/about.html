@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de | PetMatch Mini</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+
+    <a class="skip-link" href="#contenido-principal">
+        Saltar al contenido principal
+    </a>
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main id="contenido-principal">
+        
+        <h1>Acerca de PetMatch Mini</h1>
+
+        <p>
+            PetMatch Mini es una aplicación web que permite consultar
+            información de diferentes mascotas.
+        </p>
+
+        <h2>Nuestro objetivo</h2>
+
+        <p>
+            Ofrecer un catálogo sencillo donde las personas puedan
+            conocer las características de cada mascota.
+        </p>
+
+        <a th:href="@{/}">Volver al inicio</a>
+
+        <br><br>
+
+        <a th:href="@{/pets}">Ver catálogo de mascotas</a>
+    </main>
+
+</body>
+</html>
