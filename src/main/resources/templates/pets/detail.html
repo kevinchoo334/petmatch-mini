@@ -19,6 +19,7 @@
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <main id="contenido-principal">
+
         <h1>Información de la mascota</h1>
 
         <h2 th:text="${pet.name}">Nombre</h2>
@@ -43,7 +44,21 @@
             <span th:text="${pet.description}"></span>
         </p>
 
+        <a th:href="@{/pets/{id}/edit(id=${pet.id})}">
+            Editar mascota
+        </a>
+
+        <form th:action="@{/pets/{id}/delete(id=${pet.id})}"
+              method="post">
+
+            <button type="submit">
+                Eliminar mascota
+            </button>
+
+        </form>
+
         <a th:href="@{/pets}">Volver al catálogo</a>
+
     </main>
 
 </body>

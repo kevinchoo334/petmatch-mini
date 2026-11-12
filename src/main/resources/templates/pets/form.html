@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de mascota | PetMatch Mini</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+
+    <a class="skip-link" href="#contenido-principal">
+        Saltar al contenido principal
+    </a>
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main id="contenido-principal">
+
+        <h1 th:text="${petId == null ? 'Registrar mascota' : 'Editar mascota'}">
+            Registrar mascota
+        </h1>
+
+        <form th:action="${petId == null} ? @{/pets} : @{/pets/{id}(id=${petId})}"
+              th:object="${petForm}"
+              method="post">
+
+            <div>
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" th:field="*{name}">
+                <p th:if="${#fields.hasErrors('name')}"
+                   th:errors="*{name}"></p>
+            </div>
+
+            <div>
+                <label for="species">Especie:</label>
+                <input type="text" id="species" th:field="*{species}">
+                <p th:if="${#fields.hasErrors('species')}"
+                   th:errors="*{species}"></p>
+            </div>
+
+            <div>
+                <label for="age">Edad:</label>
+                <input type="number" id="age" th:field="*{age}" min="0">
+                <p th:if="${#fields.hasErrors('age')}"
+                   th:errors="*{age}"></p>
+            </div>
+
+            <div>
+                <label for="description">Descripción:</label>
+                <textarea id="description"
+                          th:field="*{description}"
+                          rows="4"></textarea>
+                <p th:if="${#fields.hasErrors('description')}"
+                   th:errors="*{description}"></p>
+            </div>
+
+            <button type="submit">Guardar mascota</button>
+
+            <a th:href="@{/pets}">Cancelar</a>
+
+        </form>
+
+    </main>
+
+</body>
+</html>

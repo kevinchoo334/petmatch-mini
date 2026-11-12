@@ -1,10 +1,14 @@
 
 package com.example.petmatch_lab;
 
+import com.example.petmatch_lab.model.Pet;
+import com.example.petmatch_lab.repository.PetRepository;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -18,6 +22,9 @@ class PetmatchLabApplicationTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private PetRepository petRepository;
 
     @Test
     void contextLoads() {
@@ -47,8 +54,20 @@ class PetmatchLabApplicationTests {
     }
 
     @Test
+    @Transactional
     void petDetailShouldWork() throws Exception {
-        mockMvc.perform(get("/pets/1"))
+
+        Pet pet = new Pet(
+                null,
+                "Mascota de prueba",
+                "Perro",
+                2,
+                "Mascota creada para la prueba automatizada"
+        );
+
+        Pet savedPet = petRepository.save(pet);
+
+        mockMvc.perform(get("/pets/" + savedPet.getId()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("pets/detail"))
                 .andExpect(model().attributeExists("pet"));
@@ -56,7 +75,7 @@ class PetmatchLabApplicationTests {
 
     @Test
     void missingPetShouldReturnNotFound() throws Exception {
-        mockMvc.perform(get("/pets/999"))
+        mockMvc.perform(get("/pets/9223372036854775807"))
                 .andExpect(status().isNotFound());
     }
 }

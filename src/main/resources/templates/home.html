@@ -13,9 +13,13 @@
 
 <body>
 
+    <a class="skip-link" href="#contenido-principal">
+        Saltar al contenido principal
+    </a>
+
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <main>
+    <main id="contenido-principal">
         <h1>¡Bienvenido a PetMatch Mini!</h1>
 
         <p th:text="${message}">
